@@ -14,4 +14,15 @@ new_df = pd.DataFrame({
     'max': df_stats['max']
 })
 new_df.to_json('new_dataframe.json', orient='table')
-print(new_df)
+
+aver_val = df['Temperature (K)'].mean()
+df['delta_T'] = abs(df['Temperature (K)'] - aver_val)
+if df.isnull().values.any():
+    print('Датафрейм содержит NaN значение')
+else:
+    print('Датафрейм не содержит NaN значение')
+Tmax = df['Temperature (K)'].max()
+delta_Tmin = df['delta_T'].min()
+new_df = df[(df['delta_T'] <= Tmax/2) & (df['Temperature (K)'] >= delta_Tmin)]
+new_df.to_csv('new_df.csv', index=False)
+
