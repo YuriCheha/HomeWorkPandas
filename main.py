@@ -26,3 +26,9 @@ delta_Tmin = df['delta_T'].min()
 new_df = df[(df['delta_T'] <= Tmax/2) & (df['Temperature (K)'] >= delta_Tmin)]
 new_df.to_csv('new_df.csv', index=False)
 
+
+corr_= df.corr(numeric_only = True)
+print(corr_)
+mean_absolute_magnitude = df.groupby('Star type')['Absolute magnitude(Mv)'].mean()
+count_by_spectral_class = df.groupby('Spectral Class').size()
+
