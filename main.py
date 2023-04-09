@@ -28,7 +28,16 @@ new_df.to_csv('new_df.csv', index=False)
 
 
 corr_= df.corr(numeric_only = True)
-print(corr_)
 mean_absolute_magnitude = df.groupby('Star type')['Absolute magnitude(Mv)'].mean()
 count_by_spectral_class = df.groupby('Spectral Class').size()
+sp_class_var = df.groupby('Star type')['Luminosity(L/Lo)'].var()
+sem_ = df['Absolute magnitude(Mv)'].sem()
+std_ = df['Temperature (K)'].std( )
+new_df2 = pd.DataFrame({
+    'mean_absolute_magnitude' : df.groupby('Star type')['Absolute magnitude(Mv)'].mean(),
+    'count_by_spectral_class' : df.groupby('Spectral Class').size(),
+    'sp_class_var': df.groupby('Star type')['Luminosity(L/Lo)'].var()
+})
+new_df2.to_xml('new_df2.xml')
+
 
